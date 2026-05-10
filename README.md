@@ -21,6 +21,13 @@
 
 ---
 
+## Actions 배포가 실패할 때 (github-pages 빨간 X)
+
+1. **Settings → Actions → General** 맨 아래 **Workflow permissions**  
+   - **Read and write permissions** 를 선택하고 저장 (기본이 읽기 전용이면 `deploy-pages` 가 실패할 수 있음)
+2. **Settings → Pages** 에서 Source가 **GitHub Actions** 인지 확인
+3. **Settings → Environments → github-pages** 에 승인자(Required reviewers)가 있으면, Actions 실행 후 **승인 대기**가 걸려 실패처럼 보일 수 있음 → 규칙 완화 또는 승인 클릭
+
 ## 404가 날 때 확인할 것
 
 | 원인 | 조치 |

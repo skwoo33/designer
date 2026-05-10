@@ -1,3 +1,4 @@
+# GitHub 공식 정적 사이트 패턴과 맞춤 (배포물은 _site 에만 둠)
 name: Deploy GitHub Pages
 
 on:
@@ -11,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: "pages"
   cancel-in-progress: false
 
 jobs:
@@ -21,14 +22,19 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
       - name: Assemble site
         run: |
           mkdir -p _site
           cp index.html styles.css main.js .nojekyll _site/
-      - uses: actions/upload-pages-artifact@v3
+          ls -la _site
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: _site
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
